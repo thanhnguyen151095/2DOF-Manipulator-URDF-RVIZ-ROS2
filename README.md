@@ -149,7 +149,7 @@ Open **`setup.py`** and replace its contents with the following. This file tells
 ```bash
 import os
 from glob import glob
-from setuptools import setup
+from setuptools import find_packages, setup
 
 package_name = 'two_dof_arm_description'
 
@@ -223,7 +223,7 @@ Window Geometry:
 ```
 4. The Python Launch File (Updated)
 
-Now, we update the launch file to use our new **`.rviz`** configuration. Open **`view_robot.launch.py`** and modify it to look like this:
+Create a launch file named **`view_robot.launch.py`** in the **`launch`** folder:
 ```bash
 import os
 from ament_index_python.packages import get_package_share_directory
@@ -243,7 +243,7 @@ def generate_launch_description():
     robot_description_raw = xacro.process_file(urdf_file_path).toxml()
 
     # Get the path to the RViz config file
-    rviz_config_file = os.path.join(package_dir, 'launch', 'view_robot.rviz')
+    rviz_config_file = os.path.join(package_dir, 'rviz', 'view_robot.rviz')
 
     # Create the necessary nodes
     robot_state_publisher_node = Node(
@@ -277,7 +277,14 @@ def generate_launch_description():
 5. Build and Launch!
 
 - After saving all the changes, rebuild your workspace and launch.
-- Build your workspace: colcon build --packages-select two_dof_arm_descriptionSource the workspace: source install/setup.bash
+- Build your workspace:
+```bash
+  colcon build --packages-select two_dof_arm_description
+``` 
+- Source the workspace:
+```bash
+  source install/setup.bash
+``` 
 - Run the launch file: ros2 launch two_dof_arm_description view_robot.launch.py
 
 Now, RViz2 should launch with your exact configuration, showing the robot, grid, and TF frames immediately without any manual setup required.
