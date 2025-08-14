@@ -2,7 +2,9 @@
 This tutorial illustrates the process of creating a URDF file for a basic 2-DOF robot manipulator and subsequently verifying it utilizing RVIZ2 in ROS2 Jazzy.
 
 
-Step 1: The first step is to create a simple 2-DOF robotic arm. This is done using a URDF (Unified Robot Description Format) file. This XML-based format is a standard in ROS and describes the robot's links (its parts), joints (how they move), and visual appearance. 
+## Step 1: 
+
+The first step is to create a simple 2-DOF robotic arm. This is done using a URDF (Unified Robot Description Format) file. This XML-based format is a standard in ROS and describes the robot's links (its parts), joints (how they move), and visual appearance. 
 
 Our robot will have:
 - A base_link: The stationary foundation.
@@ -109,9 +111,11 @@ Create a file named **`two_dof_arm.urdf`**. Later, we will place this inside our
 ```
 
 
-Step 2 (ROS2 Jazzy): Bringing Your Robot to Life (ament_python) 🚀 We've built the 2-DOF robot (URDF). Now, let's bring it into the ROS2 world using a pure Python package. This involves creating a ROS2 ament_python package, writing a **`setup.py`** file to handle installation, and using our Python launch file to visualize the robot. 
+## Step 2 (ROS2 Jazzy): 
 
-1. Create a ROS2 Python Package
+Bringing Your Robot to Life (ament_python) 🚀 We've built the 2-DOF robot (URDF). Now, let's bring it into the ROS2 world using a pure Python package. This involves creating a ROS2 ament_python package, writing a **`setup.py`** file to handle installation, and using our Python launch file to visualize the robot. 
+
+### 1. Create a ROS2 Python Package
 
 First, we need a home for our robot's files.
 
@@ -130,11 +134,11 @@ mkdir rviz
 ```
 Move your **`two_dof_arm.urdf`** file (from Step 1) into the **`urdf`** directory.
 
-2. Configure the Package Files
+### 2. Configure the Package Files
 
 ament_python packages use **`setup.py`** to describe how they should be built and installed.
 
-A. Edit package.xml:
+#### A. Edit package.xml:
 
 Open **`package.xml`** and add these lines to declare the packages we will depend on when the code is executed:  
 ```bash
@@ -143,7 +147,7 @@ Open **`package.xml`** and add these lines to declare the packages we will depen
 <exec_depend>rviz2</exec_depend>
 <exec_depend>xacro</exec_depend>
 ```
-B. Edit setup.py:
+#### B. Edit setup.py:
 
 Open **`setup.py`** and replace its contents with the following. This file tells ROS2 how to install your package and, crucially, where to find your urdf, launch, and new .rviz files.
 ```bash
@@ -182,7 +186,7 @@ setup(
 )
 ```
 
-3. Create the RViz Configuration File
+### 3. Create the RViz Configuration File
 Create a new file named **`view_robot.rviz`** inside your **`rviz`** directory and paste the exact configuration you provided into it:
 ```bash
 Panels:
@@ -221,9 +225,9 @@ Window Geometry:
   Height: 800
   Width: 1200
 ```
-4. The Python Launch File (Updated)
+### 4. The Python Launch File (Updated)
 
-Create a launch file named **`view_robot.launch.py`** in the **`launch`** folder:
+Create a launch file named **`view_robot.launch.py`** inside the **`launch`** folder:
 ```bash
 import os
 from ament_index_python.packages import get_package_share_directory
@@ -274,7 +278,7 @@ def generate_launch_description():
         rviz_node
     ])
  ```   
-5. Build and Launch!
+### 5. Build and Launch!
 
 - After saving all the changes, rebuild your workspace and launch.
 - Build your workspace:
@@ -285,6 +289,8 @@ def generate_launch_description():
 ```bash
   source install/setup.bash
 ``` 
-- Run the launch file: ros2 launch two_dof_arm_description view_robot.launch.py
-
+- Run the launch file:
+ ```bash
+ ros2 launch two_dof_arm_description view_robot.launch.py
+ ``` 
 Now, RViz2 should launch with your exact configuration, showing the robot, grid, and TF frames immediately without any manual setup required.
