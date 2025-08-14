@@ -117,7 +117,7 @@ First, we need a home for our robot's files.
 
 Open your terminal and navigate to the src directory of your ROS2 workspace (e.g., **`cd ~/ros2_ws/src`**). Then, run the following command to create a Python-based package:
 ```bash
-ros2 pkg create --build-type ament_python two_dof_arm_description
+ros2 pkg create --build-type ament_python --license Apache-2.0 two_dof_arm_description 
 ```
 This command creates a new package with a **`setup.py`** and **`package.xml`** file, which is the standard for ament_python packages.
 
